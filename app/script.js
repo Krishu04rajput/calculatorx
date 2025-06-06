@@ -1,5 +1,12 @@
 function press(val) {
-    document.getElementById('display').value += val;
+    let display = document.getElementById('display');
+    if (val === '+/-') {
+        display.value = eval(display.value) * -1;
+    } else if (val === '%') {
+        display.value = eval(display.value) / 100;
+    } else {
+        display.value += val;
+    }
 }
 
 function clearDisplay() {
@@ -8,8 +15,9 @@ function clearDisplay() {
 
 function calculate() {
     try {
-        document.getElementById('display').value = eval(document.getElementById('display').value);
-    } catch (e) {
+        let result = eval(document.getElementById('display').value);
+        document.getElementById('display').value = result;
+    } catch {
         document.getElementById('display').value = 'Error';
     }
 }
