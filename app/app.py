@@ -3,10 +3,10 @@ import streamlit.components.v1 as components
 import os
 
 # Set page config
-st.set_page_config(page_title="iOS Style Calculator", layout="centered")
+st.set_page_config(page_title="CalculatorX", layout="centered")
 
 # Title
-st.title("🧮 iOS Style Calculator")
+st.title("👇🏻 CalculatorX")
 
 # Read files
 def load_file(filepath):
