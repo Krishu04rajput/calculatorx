@@ -2,26 +2,29 @@ import streamlit as st
 import streamlit.components.v1 as components
 import os
 
-# Set page config
-st.set_page_config(page_title="CalculatorX", layout="centered")
+# ✅ Configure Streamlit page
+st.set_page_config(page_title="iOS Style Calculator", layout="centered")
 
-# Title
-st.title("👇🏻 CalculatorX")
+# ✅ Title
+st.markdown("<h1 style='text-align: center;'>🧮 iOS Style Calculator</h1>", unsafe_allow_html=True)
 
-# Read files
-def load_file(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        return f.read()
+# ✅ Function to load file content safely
+def load_file(path):
+    try:
+        with open(path, "r", encoding="utf-8") as file:
+            return file.read()
+    except FileNotFoundError:
+        return f"<!-- File not found: {path} -->"
 
-# Paths
+# ✅ File paths
 html_path = os.path.join("templates", "calculator.html")
 css_path = os.path.join("static", "style.css")
 js_path = os.path.join("static", "script.js")
 
-# Load code
-html_code = load_file(html_path)
-css_code = f"<style>{load_file(css_path)}</style>"
-js_code = f"<script>{load_file(js_path)}</script>"
+# ✅ Load all components
+html = load_file(html_path)
+css = f"<style>{load_file(css_path)}</style>"
+js = f"<script>{load_file(js_path)}</script>"
 
-# Display calculator
-components.html(css_code + html_code + js_code, height=650)
+# ✅ Inject into Streamlit
+components.html(css + html + js, height=700)
