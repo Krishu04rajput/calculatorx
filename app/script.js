@@ -1,46 +1,49 @@
+// Handles input on number and operator button press
 function press(val) {
-    let display = document.getElementById('display');
-    if (val === '+/-') {
-        display.value = eval(display.value) * -1;
-    } else if (val === '%') {
-        display.value = eval(display.value) / 100;
-    } else {
-        display.value += val;
-    }
-}
-
-function clearDisplay() {
-    document.getElementById('display').value = '';
-}function press(val) {
   const display = document.getElementById("display");
-  if (val === '+/-') {
-    display.value = -1 * parseFloat(display.value || "0");
-  } else if (val === '%') {
-    display.value = parseFloat(display.value || "0") / 100;
-  } else {
-    display.value += val;
+
+  // If display is "Error", reset it
+  if (display.value === "Error") {
+    display.value = "";
   }
+
+  // Handle ± toggle
+  if (val === "+/-") {
+    if (display.value) {
+      if (display.value.startsWith("-")) {
+        display.value = display.value.slice(1);
+      } else {
+        display.value = "-" + display.value;
+      }
+    }
+    return;
+  }
+
+  // Handle %
+  if (val === "%") {
+    if (display.value) {
+      display.value = String(parseFloat(display.value) / 100);
+    }
+    return;
+  }
+
+  // Append value to display
+  display.value += val;
 }
 
+// Clears the display
 function clearDisplay() {
   document.getElementById("display").value = "";
 }
 
+// Evaluates the expression
 function calculate() {
+  const display = document.getElementById("display");
+
   try {
-    const result = eval(document.getElementById("display").value);
-    document.getElementById("display").value = result;
-  } catch {
-    document.getElementById("display").value = "Error";
+    const result = eval(display.value);
+    display.value = Number.isFinite(result) ? result : "Error";
+  } catch (err) {
+    display.value = "Error";
   }
-}
-
-
-function calculate() {
-    try {
-        let result = eval(document.getElementById('display').value);
-        document.getElementById('display').value = result;
-    } catch {
-        document.getElementById('display').value = 'Error';
-    }
 }
